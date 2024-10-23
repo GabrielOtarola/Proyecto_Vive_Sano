@@ -1,27 +1,75 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+/* Contenedor del logo y título */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 100%;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+/* Ajustes del logo */
+.logo-img {
+  width: 250px;
+  height: auto;
+  margin-bottom: -40px;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
+/* Ajustes del título */
+.app-title {
+  font-size: 30px;
+  color: #de7e1e; /* Naranja pastel */
   margin: 0;
+  text-align: center;
 }
 
-#container a {
-  text-decoration: none;
+/* Estilos personalizados para las tarjetas de Material */
+.custom-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 2px solid orange;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Ajustes para los botones dentro de las tarjetas de Material */
+mat-card-actions button {
+  background-color: #de7e1e; /* Fondo naranja */
+  color: rgb(0, 0, 0); /* Letras blancas */
+  border-radius: 8px;
+  height: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones para hover */
+}
+
+/* Efecto hover para el botón */
+mat-card-actions button:hover {
+  background-color: #c76917; /* Un tono más oscuro de naranja */
+  transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+/* Ajustes para el tamaño de las imágenes dentro de las tarjetas */
+mat-card img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .custom-card {
+    width: 90%;
+  }
+}
+
+.naranjo-button {
+  --background: #FFA500; /* Naranjo */
+  --color: black; /* Texto negro */
+}
+
+ion-button {
+  border-radius: 8px;
 }

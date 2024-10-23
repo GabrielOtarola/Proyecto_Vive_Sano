@@ -1,0 +1,17 @@
+.recetas-container {
+    opacity: 0; /* Inicia invisible */
+    transform: translateX(-100%); /* Inicia fuera de la pantalla a la izquierda */
+  }
+  
+  ion-card {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 2px solid #FFA500; /* Borde de color naranjo */
+  }
+  
+  ion-card img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    width: 100%;
+    height: auto;
+  }

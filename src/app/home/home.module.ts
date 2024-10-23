@@ -6,13 +6,18 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
+// Importaciones de Angular Material
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    MatCardModule, // Añadir MatCardModule para usar <mat-card>
+    MatButtonModule // Añadir MatButtonModule si usas botones de Angular Material
   ],
   declarations: [HomePage]
 })

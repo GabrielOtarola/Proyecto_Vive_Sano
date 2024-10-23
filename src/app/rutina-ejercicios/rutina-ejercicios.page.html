@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="handleBackButton()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Rutina de Ejercicios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="routine-container">
+    <!-- Lista de rutinas -->
+    <div *ngIf="!ejercicioActual" class="rutina-list">
+      <h2>Selecciona una rutina</h2>
+      <ion-list>
+        <ion-item *ngFor="let rutina of rutinas" (click)="seleccionarRutina(rutina)">
+          <ion-label>{{ rutina.nombre }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Detalle del ejercicio actual -->
+    <div *ngIf="ejercicioActual" class="rutina-detalle">
+      <h2>{{ ejercicioActual.nombre }}</h2>
+      <ion-img [src]="getImageForExercise(ejercicioActual.nombre)"></ion-img>
+      <p>Tiempo restante: {{ tiempoRestante }} segundos</p>
+      <ion-progress-bar [value]="progreso"></ion-progress-bar>
+
+      <ion-button expand="full" (click)="iniciarRutina()" [disabled]="ejercicioIniciado" class="orange-button">Iniciar Rutina</ion-button>
+      <ion-button expand="full" (click)="pausarRutina()" [disabled]="!ejercicioIniciado || rutinaCompletada || estaPausada" class="orange-button">Pausar Rutina</ion-button>
+      <ion-button expand="full" (click)="reanudarRutina()" [disabled]="!estaPausada" class="orange-button">Reanudar Rutina</ion-button>
+      <ion-button expand="full" (click)="detenerRutina()" [disabled]="!ejercicioIniciado" class="orange-button">Detener Rutina</ion-button>
+    </div>
+
+    <!-- Mensaje final -->
+    <div *ngIf="mensajeFinal" class="mensaje-final">
+      <p>{{ mensajeFinal }}</p>
+    </div>
+
+    <!-- Mensaje cuando la rutina está completa -->
+    <div *ngIf="!ejercicioActual && rutinaCompletada" class="rutina-completada">
+      <p>¡Rutina completada!</p>
+      <ion-button expand="full" (click)="volverALista()" class="orange-button">Volver a la lista de rutinas</ion-button>
+    </div>
+  </div>
+</ion-content>

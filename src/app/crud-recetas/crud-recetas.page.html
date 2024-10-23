@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="handleBackButton()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Blog Recetas Saludables</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="recetaForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre de la receta</ion-label>
+      <ion-input formControlName="nombre" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descripción (Ingredientes y Preparación)</ion-label>
+      <ion-textarea formControlName="descripcion" auto-grow="true"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="recetaForm.invalid">
+      {{ editMode ? 'Modificar Receta' : 'Guardar Receta' }}
+    </ion-button>
+  </form>
+
+  <ion-list>
+    <!-- Mostrar las recetas en cards -->
+    <ion-card *ngFor="let receta of recetas">
+      <ion-card-header>
+        <ion-card-title>{{ receta.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Mostrar descripción respetando saltos de línea -->
+        <div [ngStyle]="{ 'white-space': 'pre-line' }">
+          {{ receta.descripcion }}
+        </div>
+        <ion-button fill="clear" color="primary" (click)="editReceta(receta)">Editar</ion-button>
+        <ion-button fill="clear" color="danger" (click)="deleteReceta(receta.id)">Eliminar</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
+

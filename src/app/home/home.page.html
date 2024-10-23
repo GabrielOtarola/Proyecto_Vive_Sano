@@ -1,20 +1,109 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu side="start" contentId="main-content" menuType="reveal">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Menú</ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-toggle>
+          <ion-button>
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <h2>{{ welcomeMessage }}</h2>
+        </ion-label>
+      </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <ion-item routerLink="/rutina-ejercicios">
+        <ion-icon name="fitness-outline" slot="start"></ion-icon>
+        <ion-label>Rutinas de Ejercicio</ion-label>
+      </ion-item>
+
+      <ion-item routerLink="/recetas">
+        <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+        <ion-label>Recetas</ion-label>
+      </ion-item>
+
+      <ion-item routerLink="/crud-recetas">
+        <ion-icon name="nutrition-outline" slot="start"></ion-icon>
+        <ion-label>Blog de Recetas</ion-label>
+      </ion-item>
+
+      <!-- Condicional para mostrar el botón de cerrar sesión si está autenticado -->
+      <ion-item *ngIf="isLoggedIn" (click)="logout()">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+
+      <!-- Condicional para mostrar el botón de iniciar sesión si no está autenticado -->
+      <ion-item *ngIf="!isLoggedIn" (click)="goToLogin()">
+        <ion-icon slot="start" name="log-in"></ion-icon>
+        <ion-label>Iniciar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main-content">
+  <div class="home-content">
+    <div class="logo-container">
+      <img src="assets/img/logo.png" alt="Logo" class="logo-img">
+      <h1 class="app-title">Nankurunaisa</h1>
+    </div>
+
+    <!-- Tarjeta de Ejercicio -->
+    <mat-card class="custom-card">
+      <img mat-card-image src="assets/img/card_ejercicio.jpg" alt="Rutina de Ejercicios">
+      <mat-card-header>
+        <mat-card-title>¡Muévete por tu salud!</mat-card-title>
+        <mat-card-subtitle>El poder del ejercicio</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        ¿Sabías que solo 30 minutos de ejercicio al día pueden cambiar tu vida? Mejora tu energía, fortalece tu cuerpo, y reduce el estrés con pequeños hábitos. ¡Empieza hoy y siembra bienestar para el futuro!
+      </mat-card-content>
+      <mat-card-actions>
+        <ion-button expand="full" class="naranjo-button" (click)="goToRutinaEjercicios()">Empieza tu rutina</ion-button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Tarjeta de Alimentación -->
+    <mat-card class="custom-card">
+      <img mat-card-image src="assets/img/card_alimentos.jpeg" alt="Alimentos Saludables">
+      <mat-card-header>
+        <mat-card-title>¡Elige lo saludable!</mat-card-title>
+        <mat-card-subtitle>La clave de una vida llena de energía</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Alimentarse bien es el primer paso hacia una vida más plena. Incorporar frutas, verduras y alimentos naturales en tu día a día mejora tu salud física, te llena de energía, y ayuda a prevenir enfermedades. ¡Empieza hoy, tu cuerpo te lo agradecerá mañana!
+      </mat-card-content>
+      <mat-card-actions>
+        <ion-button expand="full" class="naranjo-button" (click)="goToRecetas()">Ver recetas saludables</ion-button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Tarjeta de Hidratación -->
+    <mat-card class="custom-card">
+      <img mat-card-image src="assets/img/hidratacion.jpg" alt="Importancia de la Hidratación">
+      <mat-card-header>
+        <mat-card-title>¡Mantente hidratado todos los días!</mat-card-title>
+        <mat-card-subtitle>El agua es esencial para tu bienestar</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Beber suficiente agua es clave para mantener una buena salud. La hidratación adecuada mejora tu energía, favorece la digestión, ayuda a eliminar toxinas y mantiene tu piel radiante. ¡Recuerda tomar agua a lo largo del día y siente la diferencia en tu bienestar!
+      </mat-card-content>
+    </mat-card>
   </div>
 </ion-content>

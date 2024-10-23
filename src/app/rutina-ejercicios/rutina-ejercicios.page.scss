@@ -1,0 +1,81 @@
+.routine-container {
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #de7e1e; /* Naranja pastel */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  ion-list {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  ion-item {
+    --border-color: transparent;
+    --background: #f9f9f9;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+  }
+  
+  ion-item:hover {
+    --background: #ffd9b3; /* Naranja claro al pasar el ratón */
+  }
+  
+  ion-label {
+    color: #de7e1e; /* Naranja pastel */
+    font-size: 18px;
+  }
+  
+  .orange-button {
+    --background: #de7e1e; /* Naranja pastel */
+    --border-radius: 8px;
+    --height: 50px;
+    font-weight: bold;
+    --color: #ffffff; /* Texto blanco */
+    transition: background-color 0.3s ease;
+  }
+  
+  .orange-button:hover {
+    background-color: #c96f1a; /* Un tono más oscuro de naranja pastel */
+  }
+  
+  .mensaje-final {
+    text-align: center;
+    color: #de7e1e;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .rutina-completada {
+    text-align: center;
+    color: #28a745; /* Verde de éxito */
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .rutina-list ion-item {
+    background: #f5f5f5;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+  
+  /* Ajustes para que las imágenes se vean mejor */
+  ion-img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

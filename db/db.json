@@ -1,0 +1,38 @@
+{
+  "users": [
+    {
+      "id": "5620",
+      "username": "Gabriel",
+      "email": "ga@gas.cl",
+      "password": "1234_Pass",
+      "age": 37,
+      "height": 170,
+      "weight": 90,
+      "gender": "male",
+      "activityLevel": "high"
+    },
+    {
+      "id": "a525",
+      "username": "Gabriel",
+      "email": "ga@duco.cl",
+      "password": "1234_Pass",
+      "age": 34,
+      "height": 170,
+      "weight": 90,
+      "gender": "male",
+      "activityLevel": "high"
+    }
+  ],
+  "recetas": [
+    {
+      "nombre": "Charquicán de Verduras",
+      "descripcion": "1 zapallo italiano (calabacín) picado en cubos\n1 taza de zapallo camote (calabaza) picado en cubos\n2 papas medianas peladas y cortadas en cubos\n1 zanahoria picada en cubos\n1 taza de porotos verdes (judías verdes)\n1 cebolla picada finamente\n1 diente de ajo picado\n1 cucharada de aceite de oliva\n1 taza de caldo de verduras\n Sal, pimienta y orégano a gusto\n\nSofríe la cebolla y el ajo en aceite\nAñade el zapallo, papas, zanahoria y porotos verdes.\nCubre con el caldo y sazona.\nCocina hasta que las verduras estén blandas y el caldo reducido.",
+      "id": "dd1c"
+    },
+    {
+      "id": "ec27",
+      "nombre": "papas fritas",
+      "descripcion": "Ingredientes\nTo prepare the French fries:\n4\npapas amarillas grandes\n2\ntazas de aceite vegetal\nSal, al gusto\nTo prepare the dipping sauces:\n1 1/2\ntaza de mayonesa\n2\ncucharadas de pasta de rocoto molido\n1\ncucharadita de hojas de huacatay finamente picadas (black mint)\nSal y pimienta, al gusto\n2\ncucharadas de pasta de ají amarillo\nInstrucciones\n1\nPara preparar las papas fritas: Pela las papas y córtalas en tiras finas. Trata que todas salgan parejas, más o menos del mismo tamaño. Pon todas las papas cortadas en un recipiente y cubre con agua para que eliminen el almidón. Repite un par de veces hasta que el agua salga limpia. Escurre las papas y seca bien con servilletas de papel.\n2\nCalienta el aceite en una sartén grande sobre fuego medio-alto. Cuando esté caliente, agrega una parte de las papas y cocina, moviendo de vez en cuando, hasta que las papitas estén doradas. Retíralas del aceite con una espumadera y ponlas en un plato cubierto con varias capas de servilletas de papel para que escurra el aceite. Sazona las papitas con sal y repite hasta que todas las papas estén fritas.\n3\nPara preparar las salsas: En un recipiente, combina 1 taza de mayonesa con la pasta de rocoto, las hojas de huacatay, sal y pimienta al gusto.\n4\nEn otro recipiente combina la 1/2 taza de mayonesa con la pasta de ají amarillo. Salpimienta al gusto.\n5\nSirve las papitas fritas con estas dos salsas."
+    }
+  ]
+}

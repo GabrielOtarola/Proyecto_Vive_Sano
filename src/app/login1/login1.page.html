@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Botón que redirige a la página de inicio -->
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon slot="icon-only" name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Inicio de sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-container">
+  <div class="login-box">
+    <div class="logo-container">
+      <img src="assets/img/logo.png" alt="Logo" class="logo-img">
+      <h1 class="app-title">Bienvenido</h1>
+      <p class="app-subtitle">Por favor, inicia sesión para continuar</p>
+    </div>
+
+    <!-- Formulario de inicio de sesión con validaciones -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item class="input-item">
+        <ion-label position="floating">Nombre de Usuario</ion-label>
+        <ion-input formControlName="username" type="text" required></ion-input>
+      </ion-item>
+      <p class="error-message" *ngIf="isFieldInvalid('username')">{{ getErrorMessage('username') }}</p>
+
+      <ion-item class="input-item">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input formControlName="password" type="password" required></ion-input>
+      </ion-item>
+      <p class="error-message" *ngIf="isFieldInvalid('password')">{{ getErrorMessage('password') }}</p>
+
+      <ion-button expand="block" class="login-button" type="submit">
+        Iniciar Sesión
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" class="signup-button" routerLink="/registrar1">
+        Crear cuenta
+      </ion-button>
+
+      <ion-router-link routerLink="/recuperar-contrasena" class="forgot-password-link">
+        ¿Olvidaste tu contraseña?
+      </ion-router-link>
+    </form>
+  </div>
+
+  <div class="social-login">
+    <p>O continúa con</p>
+    <div class="social-icons">
+      <ion-button expand="block" class="google-login-button" (click)="loginWithGoogle()">
+        <img src="assets/icon/google-icon.png" alt="Google" class="google-icon">
+        Google
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

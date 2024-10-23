@@ -1,0 +1,168 @@
+.login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la pantalla */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000000; /* Asegura que el texto sea negro */
+    padding-top: 20px; /* Agrega un padding superior para separar del toolbar */
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 10px; /* Espacio adicional entre el toolbar y el logo */
+}
+
+.logo-img {
+    width: 200px; /* Ajusta el tamaño de la imagen según lo necesites */
+    height: auto;
+}
+
+.app-title {
+    font-size: 24px; /* Ajustar el tamaño del texto */
+    color: #de7e1e; /* Naranja pastel */
+    margin-top: -30px;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 350px; /* Reducir el ancho máximo del formulario */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 15px; /* Reducir el padding del formulario */
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Espacio adicional para centrar mejor */
+}
+
+.input-item {
+    margin-bottom: 10px;
+    width: 100%;
+    --background: #ffffff; /* Fondo blanco */
+    --highlight-color-focused: #de7e1e; /* Naranja pastel */
+    --min-height: 40px; /* Reducir la altura mínima de los inputs */
+    --color: #000000; /* Texto negro */
+    --border-width: 1px; /* Ancho del borde */
+    --border-color: #de7e1e; /* Color del borde */
+    --border-radius: 8px; /* Borde redondeado */
+}
+
+.input-item ion-input {
+    padding: 8px; /* Añadir padding interno */
+    --padding-start: 8px; /* Padding específico para el inicio */
+    --padding-end: 8px; /* Padding específico para el final */
+    font-size: 14px; /* Reducir el tamaño del texto en los inputs */
+}
+
+.input-item ion-input:focus {
+    border: 2px solid #de7e1e; /* Borde naranja pastel al enfocar */
+}
+
+.login-button {
+    width: 100%;
+    --background: #de7e1e; /* Naranja pastel */
+    --border-radius: 8px;
+    --height: 40px; /* Reducir la altura del botón */
+    font-size: 14px; /* Reducir el tamaño del texto en el botón */
+    font-weight: bold;
+    margin-top: 10px;
+    --color: #ffffff; /* Texto blanco */
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #c96f1a; /* Un tono más oscuro de naranja pastel al pasar el ratón */
+}
+
+.signup-button {
+    width: 100%;
+    --background: #ffffff;
+    --border-color: #de7e1e; /* Naranja pastel */
+    --color: #de7e1e; /* Naranja pastel */
+    --border-radius: 8px;
+    --height: 40px; /* Reducir la altura del botón */
+    font-size: 14px; /* Reducir el tamaño del texto */
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+    background-color: #f2f2f2; /* Ligero cambio de color al pasar el ratón */
+}
+
+.google-login-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.google-login-button {
+    --background: #ffffff; /* Fondo blanco */
+    --border-color: #db4437; /* Color de borde de Google */
+    --border-radius: 8px;
+    --height: 40px; /* Reducir la altura del botón */
+    --color: #000000; /* Texto negro */
+    --border-width: 1px;
+    font-weight: bold;
+    font-size: 14px; /* Reducir el tamaño del texto */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.google-login-button img.google-icon {
+    width: 20px; /* Ajustar el tamaño del icono */
+    height: 20px;
+    margin-right: 8px;
+}
+
+.google-login-button:hover {
+    background-color: #f8f8f8; /* Ligero cambio de color al pasar el ratón */
+}
+
+.terms-text {
+    font-size: 12px;
+    color: #666666; /* Color gris para el texto de términos */
+    margin-top: 10px;
+}
+
+.social-login {
+    text-align: center;
+    margin-top: 30px;
+    color: #666666; /* Texto gris */
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.social-icons ion-button {
+    margin: 0 10px;
+}
+
+.forgot-password-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #de7e1e; /* Naranja pastel */
+    text-align: center;
+    text-decoration: none;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: 5px 0;
+}

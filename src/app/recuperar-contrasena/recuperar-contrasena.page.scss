@@ -1,0 +1,29 @@
+.naranja-button {
+    --background: #de7e1e; /* Naranja pastel */
+    --color: #fff; /* Texto blanco */
+    --border-radius: 8px;
+    --height: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .naranja-button:hover {
+    background-color: #c96f1a; /* Un tono más oscuro de naranja */
+  }
+  
+  
+  .input-item {
+    --background: #ffffff; /* Fondo blanco */
+    --highlight-color-focused: #de7e1e; /* Naranja pastel */
+    --color: #000000; /* Texto negro */
+    --border-width: 1px; /* Ancho del borde */
+    --border-color: #de7e1e; /* Color del borde */
+    --border-radius: 8px; /* Borde redondeado */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin: 5px 0;
+  }
+  
