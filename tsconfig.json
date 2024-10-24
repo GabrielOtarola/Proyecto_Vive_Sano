@@ -24,7 +24,8 @@
     ],
     "useDefineForClassFields": false,
     "esModuleInterop": true,
-    "types": ["jquery","mocha","jest"]
+    "types": ["jquery","jest","mocha"],
+
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
