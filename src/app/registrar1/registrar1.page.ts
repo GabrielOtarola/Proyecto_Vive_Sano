@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { DatabaseService } from '../services/database.service';
 import { ApiService } from '../services/api.service'; // Asegúrate de importar ApiService
 
 @Component({
@@ -15,7 +14,6 @@ export class Registrar1Page implements OnInit {
   constructor(
     private fb: FormBuilder,
     private navCtrl: NavController,
-    private dbService: DatabaseService,
     private apiService: ApiService // Inyecta ApiService aquí
   ) {}
 
@@ -34,8 +32,6 @@ export class Registrar1Page implements OnInit {
       gender: ['', Validators.required],
       activityLevel: ['', Validators.required]
     });
-
-    this.dbService.initDB();
   }
 
   async onSubmit() {
@@ -73,4 +69,3 @@ export class Registrar1Page implements OnInit {
     return '';
   }
 }
-

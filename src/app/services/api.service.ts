@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://192.168.1.7:3000'; // URL de tu json-server
+  private apiUrl = 'http://192.168.1.146:3000'; // Asegúrate de que esta URL sea accesible desde tu dispositivo
 
   constructor(private http: HttpClient) {}
 
@@ -29,4 +29,3 @@ export class ApiService {
     );
   }
 }
-

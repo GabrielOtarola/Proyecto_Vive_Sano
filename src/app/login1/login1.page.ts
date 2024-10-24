@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { DatabaseService } from '../services/database.service';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-login1',
@@ -14,7 +14,7 @@ export class Login1Page implements OnInit {
   constructor(
     private fb: FormBuilder,
     private navCtrl: NavController,
-    private dbService: DatabaseService
+    private apiService: ApiService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -23,11 +23,7 @@ export class Login1Page implements OnInit {
   }
 
   ngOnInit() {
-    this.dbService.initDB().then(() => {
-      console.log('Base de datos inicializada.');
-    }).catch(error => {
-      console.error('Error inicializando la base de datos', error);
-    });
+    // Eliminado el uso de DatabaseService
   }
 
   isFieldInvalid(field: string): boolean {
@@ -45,18 +41,19 @@ export class Login1Page implements OnInit {
 
   async onSubmit() {
     const { username, password } = this.loginForm.value;
-    const user = await this.dbService.getUser(username);
-    if (user && user.password === password) {
-      alert('Inicio de sesión exitoso.');
-      localStorage.setItem('username', username); // Almacena el nombre de usuario
-      this.navCtrl.navigateForward('/home');
-    } else {
-      alert('Usuario o contraseña incorrectos.');
-    }
+    this.apiService.getUserByUsername(username).subscribe(users => {
+      const user = users[0];
+      if (user && user.password === password) {
+        alert('Inicio de sesión exitoso.');
+        localStorage.setItem('username', username);
+        this.navCtrl.navigateForward('/home');
+      } else {
+        alert('Usuario o contraseña incorrectos.');
+      }
+    });
   }
 
   loginWithGoogle() {
     alert('Funcionalidad de Google Login no implementada.');
   }
 }
-

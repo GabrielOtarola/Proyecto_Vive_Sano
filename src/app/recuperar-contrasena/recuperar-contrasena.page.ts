@@ -38,7 +38,7 @@ export class RecuperarContrasenaPage implements AfterViewInit {
           if (isRegistered) {
             $('#emailSuccess').text('El correo de recuperación ha sido enviado.');
             this.emailSent = true;
-            this.navCtrl.navigateForward('/login');
+            this.navCtrl.navigateForward('/login1');
           } else {
             $('#emailError').text('El correo no está registrado.');
           }

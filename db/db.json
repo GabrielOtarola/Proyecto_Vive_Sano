@@ -21,6 +21,17 @@
       "weight": 90,
       "gender": "male",
       "activityLevel": "high"
+    },
+    {
+      "id": "5ae0",
+      "username": "Seba",
+      "email": "Seba@seba.cl",
+      "password": "Sebastian1234",
+      "age": 27,
+      "height": 123,
+      "weight": 123,
+      "gender": "male",
+      "activityLevel": "medium"
     }
   ],
   "recetas": [
