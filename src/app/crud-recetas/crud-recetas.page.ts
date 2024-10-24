@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { NavController } from '@ionic/angular';  // Para navegar
+import { DatabaseService } from '../services/database.service';  // Importar DatabaseService
+import { NavController } from '@ionic/angular'; // Importa NavController
 
 @Component({
   selector: 'app-crud-recetas',
@@ -13,43 +13,44 @@ export class CrudRecetasPage implements OnInit {
   recetas: any[] = [];
   editMode: boolean = false;
   recetaIdEdit!: number;
-  private apiUrl = 'http://localhost:3000/recetas';  // Ruta del json-server
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
-    private navCtrl: NavController  // Inyectar NavController
+    private dbService: DatabaseService,  // Inyectar DatabaseService
+    private navCtrl: NavController // Inyecta NavController
   ) { }
 
   ngOnInit() {
+    // Inicializa el formulario primero para asegurarse de que esté disponible
     this.recetaForm = this.fb.group({
       nombre: ['', [Validators.required]],
       descripcion: ['', [Validators.required]]
     });
 
-    this.loadRecetas();
-  }
-
-  loadRecetas() {
-    this.http.get<any[]>(this.apiUrl).subscribe(data => {
-      this.recetas = data;
+    // Luego inicializa la base de datos
+    this.dbService.initDB().then(() => {
+      this.loadRecetas();
+    }).catch(error => {
+      console.error('Error al inicializar la base de datos:', error);
     });
   }
 
-  onSubmit() {
+  async loadRecetas() {
+    const recetas = await this.dbService.getRecetas();
+    this.recetas = recetas || [];
+  }
+
+  async onSubmit() {
     if (this.recetaForm.valid) {
+      const { nombre, descripcion } = this.recetaForm.value;
       if (this.editMode) {
-        this.http.put(`${this.apiUrl}/${this.recetaIdEdit}`, this.recetaForm.value).subscribe(() => {
-          this.recetaForm.reset();
-          this.editMode = false;
-          this.loadRecetas();
-        });
+        await this.dbService.updateReceta(this.recetaIdEdit, nombre, descripcion);
+        this.editMode = false;
       } else {
-        this.http.post(this.apiUrl, this.recetaForm.value).subscribe(() => {
-          this.recetaForm.reset();
-          this.loadRecetas();
-        });
+        await this.dbService.addReceta(nombre, descripcion);
       }
+      this.recetaForm.reset();
+      this.loadRecetas();
     }
   }
 
@@ -62,17 +63,14 @@ export class CrudRecetasPage implements OnInit {
     this.editMode = true;
   }
 
-  deleteReceta(id: number) {
+  async deleteReceta(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar esta receta?')) {
-      this.http.delete(`${this.apiUrl}/${id}`).subscribe(() => {
-        this.loadRecetas();
-      });
+      await this.dbService.deleteReceta(id);
+      this.loadRecetas();
     }
   }
 
-  // Método para retroceder
   handleBackButton() {
-    this.navCtrl.back();  // Retrocede a la página anterior
+    this.navCtrl.back(); // Navega a la página anterior
   }
 }
-

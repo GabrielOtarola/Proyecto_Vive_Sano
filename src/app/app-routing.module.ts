@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: 'rutina-ejercicios',  // Página para ver las rutinas de ejercicios
     loadChildren: () => import('./rutina-ejercicios/rutina-ejercicios.module').then(m => m.RutinaEjerciciosPageModule),
-    canActivate: [AuthGuard]  // Protegemos esta ruta
+    
   },
   {
     path: 'recetas',  // Página de recetas
@@ -37,7 +37,7 @@ const routes: Routes = [
   {
     path: 'crud-recetas',
     loadChildren: () => import('./crud-recetas/crud-recetas.module').then(m => m.CrudRecetasPageModule),
-    canActivate: [AuthGuard]  // Protegemos esta ruta
+    
   },
 ];
 
