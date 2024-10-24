@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NavController } from '@ionic/angular'; // Importar NavController
 import { ApiService } from '../services/api.service';
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-recuperar-contrasena',
@@ -15,7 +15,7 @@ export class RecuperarContrasenaPage implements AfterViewInit {
 
   ngAfterViewInit() {
     // Configurar el evento de validación del formulario con jQuery
-    $('#recoverForm').submit((event) => {
+    $('#recoverForm').submit((event: JQuery.Event) => {
       event.preventDefault(); // Prevenir el comportamiento predeterminado
 
       // Limpiar mensajes de error
@@ -47,4 +47,3 @@ export class RecuperarContrasenaPage implements AfterViewInit {
     });
   }
 }
-

@@ -32,7 +32,13 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "localforage",
+              "jquery"
+            ]
           },
           "configurations": {
             "production": {
