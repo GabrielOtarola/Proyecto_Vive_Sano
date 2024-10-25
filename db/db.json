@@ -32,6 +32,17 @@
       "weight": 123,
       "gender": "male",
       "activityLevel": "medium"
+    },
+    {
+      "id": "fbb5",
+      "username": "Juancito",
+      "email": "ga@has.cl",
+      "password": "1234_Passw",
+      "age": 40,
+      "height": 170,
+      "weight": 90,
+      "gender": "male",
+      "activityLevel": "high"
     }
   ],
   "recetas": [
