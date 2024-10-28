@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecetasService {
-  private apiUrl = 'http://192.168.1.11:3000/recetas';  // URL de JSON-Server
+  private apiUrl = 'http://192.168.2.109:3000/recetas';  // Asegúrate de que esta URL sea correcta
 
   constructor(private http: HttpClient) {}
 

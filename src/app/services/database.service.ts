@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform } from '@ionic/angular';
+import { RecetasService } from './recetas.service'; // Asegúrate de importar el servicio
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  private database: SQLiteObject | undefined; // Inicializado como undefined
+  private database: SQLiteObject | undefined;
 
-  constructor(private sqlite: SQLite, private platform: Platform) {
+  constructor(private sqlite: SQLite, private platform: Platform, private recetasService: RecetasService) {
     this.platform.ready().then(() => {
       this.initializeDatabase();
     });
@@ -20,9 +21,9 @@ export class DatabaseService {
       location: 'default'
     })
     .then((db: SQLiteObject) => {
-      this.database = db; // Asignando el valor a la propiedad
+      this.database = db;
       console.log('Base de datos inicializada correctamente');
-      this.createTables(); // Llamamos a crear tablas al inicializar la base de datos
+      this.createTables();
     })
     .catch(e => console.error('Error al inicializar la base de datos', e));
   }
@@ -48,6 +49,11 @@ export class DatabaseService {
     if (this.database) {
       const insertQuery = `INSERT INTO recetas (nombre, descripcion) VALUES (?, ?);`;
       await this.database.executeSql(insertQuery, [nombre, descripcion]);
+
+      // Sincronizar con el JSON Server
+      const receta = { nombre, descripcion };
+      await this.recetasService.createReceta(receta).toPromise();
+      console.log('Receta añadida en JSON Server');
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
@@ -60,10 +66,10 @@ export class DatabaseService {
       const recetas = [];
 
       for (let i = 0; i < result.rows.length; i++) {
-        recetas.push(result.rows.item(i)); // Obtiene cada elemento de la fila
+        recetas.push(result.rows.item(i));
       }
 
-      console.log('Recetas obtenidas:', recetas); // Verifica lo que se está devolviendo
+      console.log('Recetas obtenidas:', recetas);
       return recetas;
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
@@ -75,6 +81,11 @@ export class DatabaseService {
     if (this.database) {
       const updateQuery = `UPDATE recetas SET nombre = ?, descripcion = ? WHERE id = ?;`;
       await this.database.executeSql(updateQuery, [nombre, descripcion, id]);
+
+      // Sincronizar con el JSON Server
+      const receta = { nombre, descripcion };
+      await this.recetasService.updateReceta(id, receta).toPromise();
+      console.log('Receta actualizada en JSON Server');
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
@@ -84,6 +95,14 @@ export class DatabaseService {
     if (this.database) {
       const deleteQuery = `DELETE FROM recetas WHERE id = ?;`;
       await this.database.executeSql(deleteQuery, [id]);
+
+      // Sincronizar con el JSON Server
+      try {
+        await this.recetasService.deleteReceta(id).toPromise();
+        console.log('Receta eliminada de JSON Server');
+      } catch (error) {
+        console.error('Error al eliminar la receta en JSON Server', error);
+      }
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }

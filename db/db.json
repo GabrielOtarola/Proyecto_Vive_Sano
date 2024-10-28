@@ -56,5 +56,11 @@
       "activityLevel": "high"
     }
   ],
-  "recetas": []
+  "recetas": [
+    {
+      "id": "a2f3",
+      "nombre": "Pure",
+      "descripcion": "papas\nleche\nsal\nmargarina"
+    }
+  ]
 }
