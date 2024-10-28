@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DatabaseService } from '../services/database.service';  // Importar DatabaseService
-import { NavController } from '@ionic/angular'; // Importa NavController
+import { DatabaseService } from '../services/database.service';
+import { Router } from '@angular/router'; // Importar Router
 
 @Component({
   selector: 'app-crud-recetas',
@@ -9,68 +9,72 @@ import { NavController } from '@ionic/angular'; // Importa NavController
   styleUrls: ['./crud-recetas.page.scss'],
 })
 export class CrudRecetasPage implements OnInit {
-  recetaForm!: FormGroup;
+  recetaForm: FormGroup;
   recetas: any[] = [];
-  editMode: boolean = false;
-  recetaIdEdit!: number;
+  editMode = false;
+  editRecetaId: number | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private dbService: DatabaseService,  // Inyectar DatabaseService
-    private navCtrl: NavController // Inyecta NavController
-  ) { }
+  constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private router: Router) { // Inyectar Router
+    this.recetaForm = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required]
+    });
+  }
 
   ngOnInit() {
-    // Inicializa el formulario primero para asegurarse de que esté disponible
-    this.recetaForm = this.fb.group({
-      nombre: ['', [Validators.required]],
-      descripcion: ['', [Validators.required]]
-    });
-
-    // Luego inicializa la base de datos
-    this.dbService.initDB().then(() => {
-      this.loadRecetas();
-    }).catch(error => {
-      console.error('Error al inicializar la base de datos:', error);
-    });
+    this.loadRecetas(); // Cargar recetas al inicializar
   }
 
   async loadRecetas() {
-    const recetas = await this.dbService.getRecetas();
-    this.recetas = recetas || [];
+    this.recetas = await this.dbService.getRecetas();
+    console.log('Recetas cargadas:', this.recetas);
   }
 
-  async onSubmit() {
-    if (this.recetaForm.valid) {
-      const { nombre, descripcion } = this.recetaForm.value;
-      if (this.editMode) {
-        await this.dbService.updateReceta(this.recetaIdEdit, nombre, descripcion);
-        this.editMode = false;
-      } else {
-        await this.dbService.addReceta(nombre, descripcion);
-      }
-      this.recetaForm.reset();
-      this.loadRecetas();
+  onSubmit() {
+    if (this.recetaForm.invalid) {
+      return;
     }
+
+    const { nombre, descripcion } = this.recetaForm.value;
+
+    if (this.editMode && this.editRecetaId !== null) {
+      this.dbService.updateReceta(this.editRecetaId, nombre, descripcion)
+        .then(() => {
+          console.log('Receta actualizada');
+          this.loadRecetas();
+        });
+    } else {
+      this.dbService.addReceta(nombre, descripcion)
+        .then(() => {
+          console.log('Receta añadida');
+          this.loadRecetas();
+        });
+    }
+
+    this.recetaForm.reset();
+    this.editMode = false;
+    this.editRecetaId = null;
   }
 
   editReceta(receta: any) {
-    this.recetaForm.patchValue({
+    this.recetaForm.setValue({
       nombre: receta.nombre,
       descripcion: receta.descripcion
     });
-    this.recetaIdEdit = receta.id;
     this.editMode = true;
+    this.editRecetaId = receta.id;
   }
 
-  async deleteReceta(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar esta receta?')) {
-      await this.dbService.deleteReceta(id);
-      this.loadRecetas();
-    }
+  deleteReceta(id: number) {
+    this.dbService.deleteReceta(id)
+      .then(() => {
+        console.log('Receta eliminada');
+        this.loadRecetas();
+      });
   }
 
+  // Método para manejar el botón de regreso
   handleBackButton() {
-    this.navCtrl.back(); // Navega a la página anterior
+    this.router.navigate(['/home']); // Reemplaza con la ruta a la que deseas regresar
   }
 }

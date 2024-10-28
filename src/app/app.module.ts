@@ -3,18 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonicStorageModule } from '@ionic/storage-angular'; // Importar el IonicStorageModule
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Importación del módulo de animaciones
-import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.component'; // Importación del componente modal
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BienvenidaModalComponent // Asegúrate de declarar el componente aquí
+    BienvenidaModalComponent
   ],
   imports: [
     BrowserModule,
@@ -22,14 +23,14 @@ import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.co
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    IonicStorageModule.forRoot(), // Configuración del almacenamiento
-    HttpClientModule,
+    IonicStorageModule.forRoot(),
+    HttpClientModule, // Asegúrate de que HttpClientModule esté aquí
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, // Proveedor de la estrategia de rutas
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SQLite
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Añadir CUSTOM_ELEMENTS_SCHEMA para permitir componentes de Ionic
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
-

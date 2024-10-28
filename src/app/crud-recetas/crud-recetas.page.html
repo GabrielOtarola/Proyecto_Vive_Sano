@@ -17,7 +17,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Descripción (Ingredientes y Preparación)</ion-label>
+      <ion-label position="floating">Descripción (Ingredientes y Preparacion)</ion-label>
       <ion-textarea formControlName="descripcion" auto-grow="true"></ion-textarea>
     </ion-item>
 
@@ -27,15 +27,13 @@
   </form>
 
   <ion-list>
-    <!-- Mostrar las recetas en cards -->
     <ion-card *ngFor="let receta of recetas">
       <ion-card-header>
-        <ion-card-title>{{ receta.nombre }}</ion-card-title>
+        <ion-card-title>{{ receta?.nombre || 'Sin nombre' }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <!-- Mostrar descripción respetando saltos de línea -->
         <div [ngStyle]="{ 'white-space': 'pre-line' }">
-          {{ receta.descripcion }}
+          {{ receta?.descripcion || 'Sin descripción' }}
         </div>
         <ion-button fill="clear" color="primary" (click)="editReceta(receta)">Editar</ion-button>
         <ion-button fill="clear" color="danger" (click)="deleteReceta(receta.id)">Eliminar</ion-button>

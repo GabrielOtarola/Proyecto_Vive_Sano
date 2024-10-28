@@ -1,49 +1,33 @@
 import { Injectable } from '@angular/core';
-import { CapacitorSQLite, SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { Capacitor } from '@capacitor/core';
-import { Storage } from '@ionic/storage-angular';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  private db: SQLiteDBConnection | undefined;
+  private database: SQLiteObject | undefined; // Inicializado como undefined
 
-  constructor(private storage: Storage) {
-    this.initWebStorage();
+  constructor(private sqlite: SQLite, private platform: Platform) {
+    this.platform.ready().then(() => {
+      this.initializeDatabase();
+    });
   }
 
-  async initWebStorage() {
-    await this.storage.create();
+  private initializeDatabase() {
+    this.sqlite.create({
+      name: 'my_database.db',
+      location: 'default'
+    })
+    .then((db: SQLiteObject) => {
+      this.database = db; // Asignando el valor a la propiedad
+      console.log('Base de datos inicializada correctamente');
+      this.createTables(); // Llamamos a crear tablas al inicializar la base de datos
+    })
+    .catch(e => console.error('Error al inicializar la base de datos', e));
   }
 
-  async initDB() {
-    try {
-      if (Capacitor.getPlatform() === 'web') {
-        console.warn('SQLite no es compatible con la web. Usando almacenamiento web.');
-        return;
-      }
-
-      const connection = await CapacitorSQLite.createConnection({
-        database: 'mydb',
-        version: 1,
-        encrypted: false,
-        mode: 'no-encryption'
-      });
-
-      if (typeof connection !== 'undefined') {
-        this.db = connection as SQLiteDBConnection;
-        await this.db.open();
-        await this.createTables();
-      } else {
-        console.error('La conexión a la base de datos no está inicializada.');
-      }
-    } catch (error) {
-      console.error('Error inicializando la base de datos', error);
-    }
-  }
-
-  async createTables() {
+  private createTables() {
     const createTableQuery = `
       CREATE TABLE IF NOT EXISTS recetas (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,31 +35,36 @@ export class DatabaseService {
         descripcion TEXT NOT NULL
       );
     `;
-    if (this.db) {
-      await this.db.execute(createTableQuery);
+    if (this.database) {
+      this.database.executeSql(createTableQuery, [])
+        .then(() => console.log('Tabla recetas creada'))
+        .catch(e => console.error('Error al crear la tabla recetas', e));
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
   }
 
   async addReceta(nombre: string, descripcion: string) {
-    if (this.db) {
-      const insertQuery = `
-        INSERT INTO recetas (nombre, descripcion) VALUES (?, ?);
-      `;
-      await this.db.run(insertQuery, [nombre, descripcion]);
+    if (this.database) {
+      const insertQuery = `INSERT INTO recetas (nombre, descripcion) VALUES (?, ?);`;
+      await this.database.executeSql(insertQuery, [nombre, descripcion]);
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
   }
 
   async getRecetas(): Promise<any[]> {
-    if (this.db) {
-      const selectQuery = `
-        SELECT * FROM recetas;
-      `;
-      const result = await this.db.query(selectQuery);
-      return result?.values || [];
+    if (this.database) {
+      const selectQuery = `SELECT * FROM recetas;`;
+      const result = await this.database.executeSql(selectQuery, []);
+      const recetas = [];
+
+      for (let i = 0; i < result.rows.length; i++) {
+        recetas.push(result.rows.item(i)); // Obtiene cada elemento de la fila
+      }
+
+      console.log('Recetas obtenidas:', recetas); // Verifica lo que se está devolviendo
+      return recetas;
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
       return [];
@@ -83,22 +72,18 @@ export class DatabaseService {
   }
 
   async updateReceta(id: number, nombre: string, descripcion: string) {
-    if (this.db) {
-      const updateQuery = `
-        UPDATE recetas SET nombre = ?, descripcion = ? WHERE id = ?;
-      `;
-      await this.db.run(updateQuery, [nombre, descripcion, id]);
+    if (this.database) {
+      const updateQuery = `UPDATE recetas SET nombre = ?, descripcion = ? WHERE id = ?;`;
+      await this.database.executeSql(updateQuery, [nombre, descripcion, id]);
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
   }
 
   async deleteReceta(id: number) {
-    if (this.db) {
-      const deleteQuery = `
-        DELETE FROM recetas WHERE id = ?;
-      `;
-      await this.db.run(deleteQuery, [id]);
+    if (this.database) {
+      const deleteQuery = `DELETE FROM recetas WHERE id = ?;`;
+      await this.database.executeSql(deleteQuery, [id]);
     } else {
       console.error('La conexión a la base de datos no está inicializada.');
     }
