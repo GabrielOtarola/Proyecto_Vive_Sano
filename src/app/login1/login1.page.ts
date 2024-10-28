@@ -54,6 +54,14 @@ export class Login1Page implements OnInit {
   }
 
   loginWithGoogle() {
-    alert('Funcionalidad de Google Login no implementada.');
+    //implementar la lógica de autenticación con Google
+    // Supongamos que la autenticación es exitosa y obtienes el nombre de usuario de Google
+    const googleUsername = "Usuario de Google";
+
+    // Guardar el nombre de usuario en el localStorage
+    localStorage.setItem('username', googleUsername);
+
+    // Redirigir al usuario al menú
+    this.navCtrl.navigateForward('/home');
   }
 }
