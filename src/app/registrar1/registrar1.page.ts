@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, ActionSheetController } from '@ionic/angular';
 import { ApiService } from '../services/api.service'; // Asegúrate de importar ApiService
+import { Camera, CameraResultType, CameraSource, CameraPermissionType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-registrar1',
@@ -10,11 +11,13 @@ import { ApiService } from '../services/api.service'; // Asegúrate de importar 
 })
 export class Registrar1Page implements OnInit {
   registerForm!: FormGroup;
+  profileImage: string = ''; // Inicializar con string vacío
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, 
     private navCtrl: NavController,
-    private apiService: ApiService // Inyecta ApiService aquí
+    private apiService: ApiService,
+    private actionSheetController: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -34,9 +37,63 @@ export class Registrar1Page implements OnInit {
     });
   }
 
+  async requestCameraPermissions() {
+    const permissions = await Camera.requestPermissions({
+      permissions: ['camera', 'photos']
+    });
+
+    if (permissions.camera === 'granted' && permissions.photos === 'granted') {
+      console.log('Permisos concedidos');
+    } else {
+      console.log('Permisos denegados');
+    }
+  }
+
+  async selectImage() {
+    await this.requestCameraPermissions();
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Seleccionar fuente de imagen',
+      buttons: [
+        {
+          text: 'Tomar Foto',
+          handler: () => {
+            this.getImage(CameraSource.Camera);
+          }
+        },
+        {
+          text: 'Seleccionar de la Galería',
+          handler: () => {
+            this.getImage(CameraSource.Photos);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  async getImage(source: CameraSource) {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera // Puedes cambiar a CameraSource.Photos para seleccionar de la galería
+    });
+
+    if (image.dataUrl) {
+      this.profileImage = image.dataUrl;
+    }
+  }
+
   async onSubmit() {
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+      const formData = {
+        ...this.registerForm.value,
+        profileImage: this.profileImage // Añadir la imagen de perfil al objeto de datos
+      };
       this.apiService.addUser(formData).subscribe(
         () => {
           alert('Usuario registrado con éxito.');

@@ -38,6 +38,12 @@
         ion-input:focus, ion-select:focus {
           box-shadow: 0 0 5px rgba(222, 126, 30, 0.5);
         }
+  
+        ion-label {
+          font-size: 1.5em; /* Aumenta el tamaño de la fuente del label */
+          font-weight: bold; /* Opcional: hace que el texto sea más grueso */
+          margin-bottom: 10px; /* Ajusta el valor según el espacio que necesites */
+        }
       }
   
       .register-button {
@@ -60,3 +66,16 @@
       }
     }
   }
+
+ion-button.select-image-button {
+  --background: #de7e1e; /* Naranja pastel */
+  --border-radius: 8px;
+  --height: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-bottom: 15px; /* Espacio adicional si es necesario */
+}
+
+ion-button.select-image-button:hover {
+  background-color: #e68a2e; /* Un tono más oscuro de naranja */
+}

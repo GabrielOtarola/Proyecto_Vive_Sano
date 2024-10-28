@@ -26,6 +26,10 @@ export class HomePage implements OnInit {
     this.notificationService.scheduleWaterReminder();
   }
 
+  onMenuOpen() {
+    this.welcomeMessage = 'Bienvenido';
+  }
+
   async setWelcomeMessage() {
     const storedUsername = localStorage.getItem('username');
     if (storedUsername) {

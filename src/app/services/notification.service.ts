@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  constructor() {
+  constructor(private http: HttpClient) {
     this.requestPermission();
   }
 

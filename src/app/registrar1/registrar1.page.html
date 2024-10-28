@@ -11,6 +11,13 @@
 
 <ion-content class="register-content">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Botón para seleccionar o tomar una foto -->
+      <ion-item lines="none">
+        <ion-label position="stacked">Foto de perfil</ion-label>
+        <ion-button (click)="selectImage()">Seleccionar o Tomar Foto</ion-button>
+      </ion-item>
+      <ion-img *ngIf="profileImage" [src]="profileImage"></ion-img>
+
     <!-- Campo Nombre de Usuario -->
     <ion-item lines="none">
       <ion-input formControlName="username" type="text" placeholder="Nombre de Usuario"></ion-input>
@@ -66,6 +73,8 @@
       </ion-select>
     </ion-item>
     <p class="error-message" *ngIf="isFieldInvalid('activityLevel')">{{ getErrorMessage('activityLevel') }}</p>
+
+  
 
     <!-- Botón de envío -->
     <ion-button expand="block" type="submit" class="register-button">Registrarse</ion-button>
