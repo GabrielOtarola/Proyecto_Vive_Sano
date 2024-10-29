@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, ActionSheetController } from '@ionic/angular';
 import { ApiService } from '../services/api.service'; // Asegúrate de importar ApiService
 import { Camera, CameraResultType, CameraSource, CameraPermissionType } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-registrar1',
@@ -22,7 +23,7 @@ export class Registrar1Page implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      username: ['', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required,
@@ -38,21 +39,25 @@ export class Registrar1Page implements OnInit {
   }
 
   async requestCameraPermissions() {
-    const permissions = await Camera.requestPermissions({
-      permissions: ['camera', 'photos']
-    });
+    if (Capacitor.getPlatform() !== 'web') {
+      const permissions = await Camera.requestPermissions({
+        permissions: ['camera', 'photos']
+      });
 
-    if (permissions.camera === 'granted' && permissions.photos === 'granted') {
-      console.log('Permisos concedidos');
+      if (permissions.camera === 'granted' && permissions.photos === 'granted') {
+        console.log('Permisos concedidos');
+      } else {
+        console.log('Permisos denegados');
+      }
     } else {
-      console.log('Permisos denegados');
+      console.log('La cámara no está disponible en la web.');
     }
   }
 
   async selectImage() {
     await this.requestCameraPermissions();
     const actionSheet = await this.actionSheetController.create({
-      header: 'Seleccionar fuente de imagen',
+      header: 'Seleccionar Acción:',
       buttons: [
         {
           text: 'Tomar Foto',
@@ -80,7 +85,7 @@ export class Registrar1Page implements OnInit {
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: CameraSource.Camera // Puedes cambiar a CameraSource.Photos para seleccionar de la galería
+      source: source // Aquí se especifica la fuente de la imagen
     });
 
     if (image.dataUrl) {
@@ -122,6 +127,37 @@ export class Registrar1Page implements OnInit {
     const control = this.registerForm.get(field);
     if (control?.errors?.['required']) {
       return 'Este campo es obligatorio';
+    }
+    if (control?.errors?.['pattern']) {
+      switch (field) {
+        case 'username':
+          return 'El nombre de usuario solo puede contener letras.';
+        case 'password':
+          return 'La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula y al menos 4 dígitos.';
+      }
+    }
+    if (control?.errors?.['email']) {
+      return 'Por favor, introduce un correo electrónico válido.';
+    }
+    if (control?.errors?.['min']) {
+      switch (field) {
+        case 'age':
+          return 'La edad mínima es 14 años.';
+        case 'height':
+          return 'La altura mínima es 100 cm.';
+        case 'weight':
+          return 'El peso mínimo es 30 kg.';
+      }
+    }
+    if (control?.errors?.['max']) {
+      switch (field) {
+        case 'age':
+          return 'La edad máxima es 100 años.';
+        case 'height':
+          return 'La altura máxima es 280 cm.';
+        case 'weight':
+          return 'El peso máximo es 200 kg.';
+      }
     }
     return '';
   }
