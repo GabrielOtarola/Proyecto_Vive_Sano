@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatabaseService } from '../services/database.service';
-import { Router } from '@angular/router'; // Importar Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crud-recetas',
@@ -14,7 +14,7 @@ export class CrudRecetasPage implements OnInit {
   editMode = false;
   editRecetaId: number | null = null;
 
-  constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private router: Router) { // Inyectar Router
+  constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private router: Router) {
     this.recetaForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required]
@@ -22,7 +22,7 @@ export class CrudRecetasPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loadRecetas(); // Cargar recetas al inicializar
+    this.loadRecetas();
   }
 
   async loadRecetas() {
@@ -73,8 +73,7 @@ export class CrudRecetasPage implements OnInit {
       });
   }
 
-  // Método para manejar el botón de regreso
   handleBackButton() {
-    this.router.navigate(['/home']); // Reemplaza con la ruta a la que deseas regresar
+    this.router.navigate(['/home']);
   }
 }

@@ -58,9 +58,14 @@
   ],
   "recetas": [
     {
-      "id": "a2f3",
-      "nombre": "Pure",
-      "descripcion": "papas\nleche\nsal\nmargarina"
+      "id": "07e7",
+      "nombre": "Lechuga con atun",
+      "descripcion": "lechuga\natun\naceite\nsal"
+    },
+    {
+      "id": "b5cf",
+      "nombre": "Pastel de papas",
+      "descripcion": "papas\ncarne molida\ncebolla\ncondimentos\nsal"
     }
   ]
 }

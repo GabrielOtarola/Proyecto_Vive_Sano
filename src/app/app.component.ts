@@ -18,3 +18,4 @@ export class AppComponent {
     console.log('Plataforma lista, aplicación inicializada');
   }
 }
+
