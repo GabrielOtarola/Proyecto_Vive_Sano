@@ -32,6 +32,7 @@ const routes: Routes = [
   {
     path: 'recetas',  // Página de recetas
     loadChildren: () => import('./recetas/recetas.module').then(m => m.RecetasPageModule),
+    
   },
   // CRUD de Recetas
   {
