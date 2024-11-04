@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,15 @@ import { Platform } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform
+    private platform: Platform,
+    private storage: Storage
   ) {
     this.initializeApp();
   }
 
   async initializeApp() {
     await this.platform.ready();
+    await this.storage.create();
     console.log('Plataforma lista, aplicación inicializada');
   }
 }
