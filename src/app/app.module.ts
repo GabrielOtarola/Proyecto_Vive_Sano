@@ -10,27 +10,29 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Componentes personalizados
 import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BienvenidaModalComponent
+    AppComponent,                 // Componente principal de la aplicación
+    BienvenidaModalComponent      // Componente del modal de bienvenida
   ],
   imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    IonicStorageModule.forRoot(),
-    HttpClientModule, // Asegúrate de que HttpClientModule esté aquí
+    BrowserModule,                // Soporte para la ejecución en navegadores
+    IonicModule.forRoot(),        // Inicialización de Ionic
+    AppRoutingModule,             // Configuración de las rutas de la aplicación
+    ReactiveFormsModule,          // Módulo para trabajar con formularios reactivos
+    BrowserAnimationsModule,      // Animaciones del navegador
+    IonicStorageModule.forRoot(), // Configuración de Ionic Storage
+    HttpClientModule              // HTTP para comunicación con servidores
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SQLite
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, // Estrategia de rutas de Ionic
+    SQLite                        // Servicio para trabajar con SQLite
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent],      // Punto de entrada de la aplicación
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Permite elementos personalizados en los componentes
 })
 export class AppModule {}

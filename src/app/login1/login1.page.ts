@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
-import { ApiService } from '../services/api.service';
+import { NavController, ModalController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { BienvenidaModalComponent } from '../bienvenida-modal/bienvenida-modal.component';
 
 @Component({
   selector: 'app-login1',
   templateUrl: './login1.page.html',
   styleUrls: ['./login1.page.scss'],
 })
-export class Login1Page implements OnInit {
+export class Login1Page {
   loginForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private navCtrl: NavController,
-    private apiService: ApiService
+    private authService: AuthService,
+    private modalController: ModalController // ModalController agregado
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
-  }
-
-  ngOnInit() {
-    // Eliminado el uso de DatabaseService
   }
 
   isFieldInvalid(field: string): boolean {
@@ -41,12 +39,23 @@ export class Login1Page implements OnInit {
 
   async onSubmit() {
     const { username, password } = this.loginForm.value;
-    this.apiService.getUserByUsername(username).subscribe(users => {
-      const user = users[0];
-      if (user && user.password === password) {
-        alert('Inicio de sesión exitoso.');
-        localStorage.setItem('username', username);
-        this.navCtrl.navigateForward('/home');
+
+    this.authService.login(username, password).subscribe(async isAuthenticated => {
+      if (isAuthenticated) {
+        // Crear y mostrar el modal
+        const modal = await this.modalController.create({
+          component: BienvenidaModalComponent,
+          componentProps: { username }, // Pasar el nombre de usuario al modal
+        });
+        await modal.present();
+
+        // Redirigir después de cerrar el modal
+        modal.onDidDismiss().then(() => {
+          const navigationExtras = {
+            state: { username },
+          };
+          this.navCtrl.navigateForward('/home', navigationExtras);
+        });
       } else {
         alert('Usuario o contraseña incorrectos.');
       }
@@ -54,6 +63,8 @@ export class Login1Page implements OnInit {
   }
 
   loginWithGoogle() {
-    alert('Funcionalidad de Google Login no implementada.');
+    // Implementación del método para iniciar sesión con Google
+    console.log('Iniciando sesión con Google...');
+    // Aquí puedes agregar la lógica para la autenticación con Google
   }
 }
