@@ -17,20 +17,20 @@ export class CrudRecetasPage implements OnInit {
   constructor(private formBuilder: FormBuilder, private dbService: DatabaseService, private router: Router) {
     this.recetaForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      descripcion: ['', Validators.required]
+      descripcion: ['', Validators.required],
     });
   }
 
   ngOnInit() {
-    this.loadRecetas();
+    this.loadRecetas(); // Cargar las recetas desde SQLite
   }
 
   async loadRecetas() {
-    this.recetas = await this.dbService.getRecetas();
-    console.log('Recetas cargadas:', this.recetas);
+    this.recetas = await this.dbService.getRecetas(); // Cargar recetas desde SQLite
+    console.log('Recetas cargadas desde SQLite:', this.recetas);
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.recetaForm.invalid) {
       return;
     }
@@ -38,39 +38,32 @@ export class CrudRecetasPage implements OnInit {
     const { nombre, descripcion } = this.recetaForm.value;
 
     if (this.editMode && this.editRecetaId !== null) {
-      this.dbService.updateReceta(this.editRecetaId, nombre, descripcion)
-        .then(() => {
-          console.log('Receta actualizada');
-          this.loadRecetas();
-        });
+      await this.dbService.updateReceta(this.editRecetaId, nombre, descripcion);
+      console.log('Receta actualizada');
     } else {
-      this.dbService.addReceta(nombre, descripcion)
-        .then(() => {
-          console.log('Receta añadida');
-          this.loadRecetas();
-        });
+      await this.dbService.addReceta(nombre, descripcion);
+      console.log('Receta añadida');
     }
 
     this.recetaForm.reset();
     this.editMode = false;
     this.editRecetaId = null;
+    this.loadRecetas(); // Recargar las recetas después de guardar
   }
 
   editReceta(receta: any) {
     this.recetaForm.setValue({
       nombre: receta.nombre,
-      descripcion: receta.descripcion
+      descripcion: receta.descripcion,
     });
     this.editMode = true;
     this.editRecetaId = receta.id;
   }
 
-  deleteReceta(id: number) {
-    this.dbService.deleteReceta(id)
-      .then(() => {
-        console.log('Receta eliminada');
-        this.loadRecetas();
-      });
+  async deleteReceta(id: number) {
+    await this.dbService.deleteReceta(id);
+    console.log('Receta eliminada');
+    this.loadRecetas(); // Recargar las recetas después de eliminar
   }
 
   handleBackButton() {

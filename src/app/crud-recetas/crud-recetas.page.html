@@ -21,7 +21,7 @@
       <ion-textarea formControlName="descripcion" auto-grow="true"></ion-textarea>
     </ion-item>
 
-    <ion-button expand="block" type="submit" [disabled]="recetaForm.invalid">
+    <ion-button expand="block" class="naranja-button" type="submit" [disabled]="recetaForm.invalid">
       {{ editMode ? 'Modificar Receta' : 'Guardar Receta' }}
     </ion-button>
   </form>

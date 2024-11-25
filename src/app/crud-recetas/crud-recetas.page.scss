@@ -1,0 +1,59 @@
+.recetas-container {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    color: #de7e1e; /* Naranja pastel */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+ion-item {
+    --border-color: transparent;
+    --background: #f9f9f9;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+ion-item:hover {
+    --background: #ffd9b3; /* Naranja claro al pasar el ratón */
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.naranja-button {
+    --background: #de7e1e; /* Naranja pastel */
+    --color: #fff; /* Texto blanco */
+    --border-radius: 8px;
+    --height: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.naranja-button:hover {
+    background-color: #c96f1a; /* Un tono más oscuro de naranja */
+}
+
+ion-card {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    background-color: #fff2de; /* Un tono claro de naranja para el fondo */
+    border: 2px solid #ffcc80; /* Un tono más claro de naranja para el borde */
+    color: #000; /* Agregado para hacer el texto más negro */
+}
+
+ion-card img {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    width: 100%;
+    height: auto;
+}
