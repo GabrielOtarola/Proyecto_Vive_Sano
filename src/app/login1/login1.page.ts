@@ -61,10 +61,4 @@ export class Login1Page {
       }
     });
   }
-
-  loginWithGoogle() {
-    // Implementación del método para iniciar sesión con Google
-    console.log('Iniciando sesión con Google...');
-    // Aquí puedes agregar la lógica para la autenticación con Google
-  }
 }
