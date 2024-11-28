@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://192.168.1.11:3000'; // Asegúrate de que esta URL sea accesible desde tu dispositivo
+  private apiUrl = 'https://6744f4b2b4e2e04abea436a9.mockapi.io/db/users'; // Asegúrate de que esta URL sea accesible desde tu dispositivo
 
   constructor(private http: HttpClient) {}
 

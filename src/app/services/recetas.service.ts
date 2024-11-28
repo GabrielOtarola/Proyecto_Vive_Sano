@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecetasService {
-  private apiUrl = 'http://192.168.1.11:3000/recetas';  // Asegúrate de que esta URL sea correcta
+  private apiUrl = 'https://6744f4b2b4e2e04abea436a9.mockapi.io/db/recetas';  // Asegúrate de que esta URL sea correcta
 
   constructor(private http: HttpClient) {}
 

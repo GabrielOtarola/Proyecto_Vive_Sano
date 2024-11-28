@@ -13,5 +13,11 @@
       "profileImage": ""
     }
   ],
-  "recetas": []
+  "recetas": [
+    {
+      "id": "c4dd",
+      "nombre": "Sopaipillas",
+      "descripcion": "harina\nsal\nagua\nzapallo"
+    }
+  ]
 }
