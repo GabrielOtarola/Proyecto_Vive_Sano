@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, ActionSheetController } from '@ionic/angular';
-import { ApiService } from '../services/api.service'; // Asegúrate de importar ApiService
+import { ApiService } from '../services/api.service';
 import { Camera, CameraResultType, CameraSource, CameraPermissionType } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 
@@ -12,10 +12,10 @@ import { Capacitor } from '@capacitor/core';
 })
 export class Registrar1Page implements OnInit {
   registerForm!: FormGroup;
-  profileImage: string = ''; // Inicializar con string vacío
+  profileImage: string = '';
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private navCtrl: NavController,
     private apiService: ApiService,
     private actionSheetController: ActionSheetController
@@ -85,7 +85,7 @@ export class Registrar1Page implements OnInit {
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: source // Aquí se especifica la fuente de la imagen
+      source: source
     });
 
     if (image.dataUrl) {
@@ -97,8 +97,11 @@ export class Registrar1Page implements OnInit {
     if (this.registerForm.valid) {
       const formData = {
         ...this.registerForm.value,
-        profileImage: this.profileImage // Añadir la imagen de perfil al objeto de datos
+        profileImage: this.profileImage
       };
+
+      console.log('Datos a enviar:', formData);
+
       this.apiService.addUser(formData).subscribe(
         () => {
           alert('Usuario registrado con éxito.');
@@ -106,7 +109,7 @@ export class Registrar1Page implements OnInit {
         },
         (error) => {
           console.error('Error al registrar usuario:', error);
-          alert('Hubo un problema al registrar el usuario.');
+          alert(`Hubo un problema al registrar el usuario: ${JSON.stringify(error)}`);
         }
       );
     } else {

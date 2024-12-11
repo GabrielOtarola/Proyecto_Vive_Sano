@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -7,24 +7,25 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://6744f4b2b4e2e04abea436a9.mockapi.io/db/users'; // Asegúrate de que esta URL sea accesible desde tu dispositivo
+  private apiUrl = 'https://6744f4b2b4e2e04abea436a9.mockapi.io/db/users';
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users`);
+    return this.http.get(`${this.apiUrl}`);
   }
 
   getUserByUsername(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users?username=${username}`);
+    return this.http.get(`${this.apiUrl}?username=${username}`);
   }
 
   addUser(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, user);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}`, user, { headers });
   }
 
   isEmailRegistered(email: string): Observable<boolean> {
-    return this.http.get<any[]>(`${this.apiUrl}/users?email=${email}`).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}?email=${email}`).pipe(
       map(users => users.length > 0)
     );
   }
