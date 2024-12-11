@@ -6,13 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Componentes personalizados
+import { AppComponent } from './app.component';
 import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.component';
+import { SplashScreenModule } from './splash-screen/splash-screen.module'; // Importar el módulo del SplashScreenComponent
+import { AppRoutingModule } from './app-routing.module'; // Asegúrate de que esta línea esté presente
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { BienvenidaModalComponent } from './bienvenida-modal/bienvenida-modal.co
     ReactiveFormsModule,          // Módulo para trabajar con formularios reactivos
     BrowserAnimationsModule,      // Animaciones del navegador
     IonicStorageModule.forRoot(), // Configuración de Ionic Storage
-    HttpClientModule              // HTTP para comunicación con servidores
+    HttpClientModule,             // HTTP para comunicación con servidores
+    SplashScreenModule            // Importar el SplashScreenModule para registrar el componente de splash
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, // Estrategia de rutas de Ionic

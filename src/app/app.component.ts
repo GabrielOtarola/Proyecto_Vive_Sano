@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { Storage } from '@ionic/storage-angular';
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -19,6 +21,9 @@ export class AppComponent {
     await this.platform.ready();
     await this.storage.create();
     console.log('Plataforma lista, aplicación inicializada');
+
+    setTimeout(() => {
+      this.router.navigate(['/login1']);
+    }, 4000);
   }
 }
-

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Asegúrate de agregar ReactiveFormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { Login1PageRoutingModule } from './login1-routing.module';
@@ -11,9 +11,10 @@ import { Login1Page } from './login1.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule, // Agrega esto
+    ReactiveFormsModule, // Importa ReactiveFormsModule para formularios reactivos
     Login1PageRoutingModule
   ],
   declarations: [Login1Page]
 })
 export class Login1PageModule {}
+
