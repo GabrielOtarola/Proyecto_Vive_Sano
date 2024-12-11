@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +25,8 @@ export class ApiService {
   }
 
   isEmailRegistered(email: string): Observable<boolean> {
-    return this.http.get<any[]>(`${this.apiUrl}?email=${email}`).pipe(
-      map(users => users.length > 0)
+    return this.http.get<boolean>(`${this.apiUrl}?email=${email}`).pipe(
+      tap(response => console.log('Respuesta del servidor:', response))
     );
   }
 }
